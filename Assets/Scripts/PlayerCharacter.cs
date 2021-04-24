@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour {
-	public int minLane;
-	public int maxLane;
+	public int laneCount;
 	public float changeLanesSpeed;
 	public float jumpSpeed;
 
@@ -15,6 +14,12 @@ public class PlayerCharacter : MonoBehaviour {
 	Vector3 currentSpeed;
 
 	void Awake() {
+		characterController.enabled = false;
+		Vector3 newPosition = transform.position;
+		newPosition.x = laneCount / 2;
+		transform.position = newPosition;
+		characterController.enabled = true;
+
 		targetLane = currentLane = CalculateCurrentLane();
 		Debug.Log("Current lane detected to be " + currentLane);
 		currentSpeed = constantSpeed;
@@ -40,13 +45,13 @@ public class PlayerCharacter : MonoBehaviour {
 
 	public void OnLeft(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
-			targetLane = Mathf.Clamp(targetLane - 1, minLane, maxLane);
+			targetLane = Mathf.Clamp(targetLane - 1, 0, laneCount);
 		}
 	}
 
 	public void OnRight(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
-			targetLane = Mathf.Clamp(targetLane + 1, minLane, maxLane);
+			targetLane = Mathf.Clamp(targetLane + 1, 0, laneCount);
 		}
 	}
 
