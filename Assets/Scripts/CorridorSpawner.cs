@@ -5,7 +5,9 @@ public class CorridorSpawner : MonoBehaviour {
     public const float CORRIDOR_LENGTH = 10.0f;
 
     public Corridor corridor;
+    public Corridor corridorWithHole;
     public int corridorsToSpawn;
+    public float corridorWithHoleSpawnChance;
 
     public PlayerCharacter playerCharacter;
     public UnityEvent<CorridorSpawner, int, int> onNextCorridorReached;
@@ -21,7 +23,7 @@ public class CorridorSpawner : MonoBehaviour {
 
     void Start() {
         for (int i = 1; i <= corridorsToSpawn; i++) {
-            SpawnCorridor(i);
+            SpawnCorridor(corridor, i);
             spawnedCorridorsCount++;
         }
     }
@@ -35,10 +37,11 @@ public class CorridorSpawner : MonoBehaviour {
 	}
 
     public void OnNextCorridorReached() {
-        SpawnCorridor(++spawnedCorridorsCount);
+        Corridor whichCorridor = (Random.Range(0.0f, 1.0f) < corridorWithHoleSpawnChance) ? corridorWithHole : corridor;
+        SpawnCorridor(whichCorridor, ++spawnedCorridorsCount);
     }
 
-    Corridor SpawnCorridor(int id) {
+    Corridor SpawnCorridor(Corridor corridor, int id) {
         return Instantiate(corridor, CalculateCorridorPosition(id), Quaternion.identity);
     }
 

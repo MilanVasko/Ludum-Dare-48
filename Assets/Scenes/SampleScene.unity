@@ -196,7 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   corridor: {fileID: 4608094646120462238, guid: a42488b4bc329a148961ba79e3b2e8d2, type: 3}
+  corridorWithHole: {fileID: 4608094646120462238, guid: dccb05f3369a3d24eb038bd29b3eebe0, type: 3}
   corridorsToSpawn: 10
+  corridorWithHoleSpawnChance: 0.3
   playerCharacter: {fileID: 1681712395}
   onNextCorridorReached:
     m_PersistentCalls:
@@ -284,8 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 1681712394}
-  offset: {x: 0, y: 0, z: -7}
-  fixedY: 1.5
+  distanceFromTarget: 7
 --- !u!81 &599212777
 AudioListener:
   m_ObjectHideFlags: 0
@@ -345,7 +346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599212775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -7}
+  m_LocalPosition: {x: 1, y: 1.5, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

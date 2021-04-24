@@ -14,15 +14,22 @@ public class PlayerCharacter : MonoBehaviour {
 	Vector3 currentSpeed;
 
 	void Awake() {
-		characterController.enabled = false;
 		Vector3 newPosition = transform.position;
 		newPosition.x = laneCount / 2;
-		transform.position = newPosition;
-		characterController.enabled = true;
-
-		targetLane = currentLane = CalculateCurrentLane();
+		TeleportTo(newPosition);
 		Debug.Log("Current lane detected to be " + currentLane);
 		currentSpeed = new Vector3(0.0f, 0.0f, forwardSpeed);
+	}
+
+	public void TeleportTo(Vector3 newPosition) {
+		characterController.enabled = false;
+		transform.position = newPosition;
+		targetLane = currentLane = CalculateCurrentLane();
+		characterController.enabled = true;
+	}
+
+	public void ResetSpeed() {
+		currentSpeed = Vector3.zero;
 	}
 
 	void FixedUpdate() {
@@ -52,7 +59,7 @@ public class PlayerCharacter : MonoBehaviour {
 
 	public void OnRight(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
-			targetLane = Mathf.Clamp(targetLane + 1, 0, laneCount);
+			targetLane = Mathf.Clamp(targetLane + 1, 0, laneCount - 1);
 		}
 	}
 

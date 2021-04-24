@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour {
     public Transform followTarget;
-    public Vector3 offset;
-    public float fixedY;
+    public float distanceFromTarget;
 
     void LateUpdate() {
-        Vector3 newPosition = followTarget.position + offset;
-        newPosition.y = fixedY;
+        Vector3 newPosition = transform.position;
+        newPosition.z = followTarget.position.z - distanceFromTarget;
         transform.position = newPosition;
     }
 }
