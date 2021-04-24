@@ -98,6 +98,7 @@ MonoBehaviour:
   minLane: -1
   maxLane: 1
   changeLanesSpeed: 5
+  jumpSpeed: 5
   constantSpeed: {x: 0, y: 0, z: 7}
   characterController: {fileID: 3161498709686556228}
 --- !u!114 &9102854468422265945
@@ -157,6 +158,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e051ffec-a07f-4d0e-94f3-c51945674a0a
     m_ActionName: Player/Right[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2021894073759281686}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e60aac05-8550-46bf-b640-c0a4919664d2
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

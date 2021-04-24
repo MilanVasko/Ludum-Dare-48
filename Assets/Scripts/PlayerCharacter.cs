@@ -5,11 +5,13 @@ public class PlayerCharacter : MonoBehaviour {
 	public int minLane;
 	public int maxLane;
 	public float changeLanesSpeed;
+	public float jumpSpeed;
 
 	public Vector3 constantSpeed;
 	public CharacterController characterController;
 	int currentLane;
 	int targetLane;
+	bool wantsToJump = false;
 	Vector3 currentSpeed;
 
 	void Awake() {
@@ -22,6 +24,13 @@ public class PlayerCharacter : MonoBehaviour {
 		currentSpeed += Physics.gravity * Time.deltaTime;
 		float xDiff = (targetLane - transform.position.x) * changeLanesSpeed;
 		currentSpeed.x = xDiff;
+
+		if (wantsToJump) {
+			wantsToJump = false;
+			if (characterController.isGrounded) {
+				currentSpeed.y = jumpSpeed;
+			}
+		}
 
 		if ((characterController.Move(currentSpeed * Time.deltaTime) & CollisionFlags.Below) != 0) {
 			currentSpeed.y = 0;
@@ -38,6 +47,12 @@ public class PlayerCharacter : MonoBehaviour {
 	public void OnRight(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
 			targetLane = Mathf.Clamp(targetLane + 1, minLane, maxLane);
+		}
+	}
+
+	public void OnJump(InputAction.CallbackContext callbackContext) {
+		if (callbackContext.performed) {
+			wantsToJump = true;
 		}
 	}
 
