@@ -1,16 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour {
-	public static event Action<PlayerCharacter> onPlayerDied;
-	public static event Action<PlayerCharacter, int, int> onPlayerTakenDamage;
-
 	public int laneCount;
 	public float changeLanesSpeed;
 	public float jumpSpeed;
 
-	public Vector3 constantSpeed;
+	public float forwardSpeed;
 	public CharacterController characterController;
 	int currentLane;
 	int targetLane;
@@ -26,13 +22,14 @@ public class PlayerCharacter : MonoBehaviour {
 
 		targetLane = currentLane = CalculateCurrentLane();
 		Debug.Log("Current lane detected to be " + currentLane);
-		currentSpeed = constantSpeed;
+		currentSpeed = new Vector3(0.0f, 0.0f, forwardSpeed);
 	}
 
 	void FixedUpdate() {
 		currentSpeed += Physics.gravity * Time.deltaTime;
 		float xDiff = (targetLane - transform.position.x) * changeLanesSpeed;
 		currentSpeed.x = xDiff;
+		currentSpeed.z = forwardSpeed;
 
 		if (wantsToJump) {
 			wantsToJump = false;
@@ -63,14 +60,6 @@ public class PlayerCharacter : MonoBehaviour {
 		if (callbackContext.performed) {
 			wantsToJump = true;
 		}
-	}
-
-	public void OnTakenDamage(int previousHealth, int currentHealth) {
-		onPlayerTakenDamage?.Invoke(this, previousHealth, currentHealth);
-	}
-
-	public void OnDeath() {
-		onPlayerDied?.Invoke(this);
 	}
 
 	int CalculateCurrentLane() {

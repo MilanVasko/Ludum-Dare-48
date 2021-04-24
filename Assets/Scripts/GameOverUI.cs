@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour {
 	void Awake() {
 		SetUIActive(false);
-		PlayerCharacter.onPlayerDied += OnPlayerDied;
+		PlayerHealth.onPlayerDied += OnPlayerDied;
 	}
 
 	void OnDestroy() {
-		PlayerCharacter.onPlayerDied -= OnPlayerDied;
+		PlayerHealth.onPlayerDied -= OnPlayerDied;
 	}
 
-	void OnPlayerDied(PlayerCharacter playerCharacter) {
+	void OnPlayerDied(PlayerHealth playerHealth) {
 		SetUIActive(true);
 	}
 

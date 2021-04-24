@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6769702133167104949}
   - component: {fileID: 591621602172209100}
   - component: {fileID: 5019242197559088869}
+  - component: {fileID: 3175593829184845513}
   m_Layer: 0
   m_Name: BehindCharacterTrigger
   m_TagString: Untagged
@@ -74,6 +75,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3175593829184845513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681903985048087451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d35d666810b4db428c7ce3c18f7823c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 0
 --- !u!1 &3161498707599784565
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +130,7 @@ GameObject:
   - component: {fileID: 3161498709686556228}
   - component: {fileID: 2021894073759281686}
   - component: {fileID: 9102854468422265945}
-  - component: {fileID: 3247404893353805975}
+  - component: {fileID: 1838064735790406271}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -174,7 +188,7 @@ MonoBehaviour:
   laneCount: 3
   changeLanesSpeed: 5
   jumpSpeed: 5
-  constantSpeed: {x: 0, y: 0, z: 7}
+  forwardSpeed: 7
   characterController: {fileID: 3161498709686556228}
 --- !u!114 &9102854468422265945
 MonoBehaviour:
@@ -254,7 +268,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3247404893353805975
+--- !u!114 &1838064735790406271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,40 +277,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3161498709686556229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d35d666810b4db428c7ce3c18f7823c, type: 3}
+  m_Script: {fileID: 11500000, guid: 633c06d0e4fec4443970706cd7501d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
-  onTakenDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2021894073759281686}
-        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
-        m_MethodName: OnTakenDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2021894073759281686}
-        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
-        m_MethodName: OnDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  meshRenderer: {fileID: 7856692740777705148}
+  invincibleAfterDamageTime: 5
 --- !u!1001 &8847604910071702072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,6 +334,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 127b562cc030a4c4ebb21a0cecceadc2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 550d174ea186a2c4580080e2fa2d4221, type: 2}
     - target: {fileID: 919132149155446097, guid: 127b562cc030a4c4ebb21a0cecceadc2, type: 3}
       propertyPath: m_Name
       value: Character
@@ -357,5 +347,10 @@ PrefabInstance:
 --- !u!4 &9026261176437048787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 127b562cc030a4c4ebb21a0cecceadc2, type: 3}
+  m_PrefabInstance: {fileID: 8847604910071702072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7856692740777705148 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 127b562cc030a4c4ebb21a0cecceadc2, type: 3}
   m_PrefabInstance: {fileID: 8847604910071702072}
   m_PrefabAsset: {fileID: 0}

@@ -1,31 +1,33 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Health : MonoBehaviour {
 	public int startingHealth;
 	int currentHealth;
-	bool dead = false;
-	public UnityEvent<int, int> onTakenDamage;
-	public UnityEvent onDeath;
+
+	protected bool dead = false;
 
 	void Awake() {
-		if (startingHealth <= 0) {
-			throw new UnityException("Starting health must be greater than 0");
-		}
 		currentHealth = startingHealth;
 	}
 
 	public void TakeDamage(int amount) {
-		if (dead) {
+		if (!ShouldTakeDamage(amount)) {
 			return;
 		}
 
 		currentHealth -= amount;
-		onTakenDamage?.Invoke(currentHealth + amount, currentHealth);
+		OnTakenDamage(currentHealth + amount, currentHealth);
 
 		if (currentHealth <= 0) {
 			dead = true;
-			onDeath.Invoke();
+			OnDeath();
 		}
 	}
+
+	protected virtual bool ShouldTakeDamage(int amount) {
+		return !dead;
+	}
+
+	protected virtual void OnTakenDamage(int previousHealth, int currentHealth) { }
+	protected virtual void OnDeath() { }
 }
