@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 542215458}
   - component: {fileID: 542215457}
   - component: {fileID: 542215459}
-  - component: {fileID: 542215460}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -156,6 +155,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corridor: {fileID: 4608094646120462238, guid: a42488b4bc329a148961ba79e3b2e8d2, type: 3}
   corridorsToSpawn: 10
+  playerCharacter: {fileID: 1681712395}
+  onNextCorridorReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 542215459}
+        m_TargetAssemblyTypeName: SpikesSpawner, Assembly-CSharp
+        m_MethodName: OnNextCorridorReached
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 542215457}
+        m_TargetAssemblyTypeName: CorridorSpawner, Assembly-CSharp
+        m_MethodName: OnNextCorridorReached
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &542215458
 Transform:
   m_ObjectHideFlags: 0
@@ -168,7 +195,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &542215459
 MonoBehaviour:
@@ -183,50 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikes: {fileID: 5434482256990553331, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-  maxSpawnDistance: 50
-  minSpaceBetweenSpikes: 0
-  maxSpaceBetweenSpikes: 0
-  spikesToSpawn: 0
---- !u!114 &542215460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542215456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b7d09752d84bb14f9d3a31dcadbbaf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCharacter: {fileID: 1681712395}
-  onNextCorridorReached:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 542215457}
-        m_TargetAssemblyTypeName: CorridorSpawner, Assembly-CSharp
-        m_MethodName: OnNextCorridorReached
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 542215459}
-        m_TargetAssemblyTypeName: SpikesSpawner, Assembly-CSharp
-        m_MethodName: OnNextCorridorReached
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  corridorSpawner: {fileID: 542215457}
 --- !u!1 &599212775
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,69 +308,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &681669415
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 207146811613090892, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6680146025261230362, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_Name
-      value: Spikes
-      objectReference: {fileID: 0}
-    - target: {fileID: 6876476419208013255, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3161498709686556231, guid: 3e05df1537beee643bc9dd73a05f7c3d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3161498709686556231, guid: 3e05df1537beee643bc9dd73a05f7c3d, type: 3}
       propertyPath: m_LocalPosition.x

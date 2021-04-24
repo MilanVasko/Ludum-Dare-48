@@ -1,30 +1,52 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CorridorSpawner : MonoBehaviour {
+    public const float CORRIDOR_LENGTH = 10.0f;
+
     public Corridor corridor;
     public int corridorsToSpawn;
 
-    private Queue<Corridor> spawnedCorridors = new Queue<Corridor>();
+    public PlayerCharacter playerCharacter;
+    public UnityEvent<CorridorSpawner, int, int> onNextCorridorReached;
 
-    Vector3 firstSpawnLocation = Vector3.back * 2 * CorridorHandler.CORRIDOR_LENGTH;
+    int previousCorridorID;
+
+    Vector3 firstSpawnLocation = Vector3.back * 2 * CORRIDOR_LENGTH;
     int spawnedCorridorsCount = 0;
+
+    void Awake() {
+        previousCorridorID = CalculateCurrentPlayerCorridorID();
+    }
 
     void Start() {
         for (int i = 1; i <= corridorsToSpawn; i++) {
-            spawnedCorridors.Enqueue(SpawnCorridor(i));
+            SpawnCorridor(i);
             spawnedCorridorsCount++;
         }
     }
 
-    public void OnNextCorridorReached() {
-        Corridor lastCorridor = spawnedCorridors.Dequeue();
-        Destroy(lastCorridor.gameObject);
+    void Update() {
+        int currentCorridorID = CalculateCurrentPlayerCorridorID();
+        if (previousCorridorID != currentCorridorID) {
+            previousCorridorID = currentCorridorID;
+			onNextCorridorReached.Invoke(this, currentCorridorID, currentCorridorID + corridorsToSpawn);
+		}
+	}
 
-        spawnedCorridors.Enqueue(SpawnCorridor(++spawnedCorridorsCount));
+    public void OnNextCorridorReached() {
+        SpawnCorridor(++spawnedCorridorsCount);
     }
 
     Corridor SpawnCorridor(int id) {
-        return Instantiate(corridor, firstSpawnLocation + Vector3.forward * id * CorridorHandler.CORRIDOR_LENGTH, Quaternion.identity);
+        return Instantiate(corridor, CalculateCorridorPosition(id), Quaternion.identity);
     }
+
+    public int CalculateCurrentPlayerCorridorID() {
+        return (int)(playerCharacter.transform.position.z / CORRIDOR_LENGTH);
+    }
+
+    public Vector3 CalculateCorridorPosition(int corridorID) {
+        return firstSpawnLocation + Vector3.forward * corridorID * CORRIDOR_LENGTH;
+	}
 }

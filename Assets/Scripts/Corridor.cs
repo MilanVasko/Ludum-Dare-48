@@ -1,4 +1,7 @@
 using UnityEngine;
 
-public class Corridor : MonoBehaviour {
+public class Corridor : MonoBehaviour, ISelfDestructor {
+	public void SelfDestruct() {
+        Destroy(gameObject);
+	}
 }

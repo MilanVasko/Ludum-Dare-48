@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Spikes : MonoBehaviour {
+public class Spikes : MonoBehaviour, ISelfDestructor {
 	public int laneCount;
 	public int amountOfDamage;
 	public Transform spikes;
@@ -26,5 +26,9 @@ public class Spikes : MonoBehaviour {
 		if (health != null) {
 			health.TakeDamage(amountOfDamage);
 		}
+	}
+
+	public void SelfDestruct() {
+		Destroy(gameObject);
 	}
 }
