@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3959878347057705057}
         m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
         m_MethodName: OnTryAgainPressed
         m_Mode: 1
@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 1654993047202798144}
   - component: {fileID: 6477755308320478241}
   - component: {fileID: 7915959343357896160}
+  - component: {fileID: 3959878347057705057}
   m_Layer: 5
   m_Name: GameOverPanelUI
   m_TagString: Untagged
@@ -209,6 +210,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3959878347057705057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2666443464059843772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd0fb9e0c19bf147b7fd183fb5e4df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2864502594921517061
 GameObject:
   m_ObjectHideFlags: 0

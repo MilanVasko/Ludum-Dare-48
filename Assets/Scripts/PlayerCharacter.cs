@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour {
 	public static event Action<PlayerCharacter> onPlayerDied;
+	public static event Action<PlayerCharacter, int, int> onPlayerTakenDamage;
 
 	public int laneCount;
 	public float changeLanesSpeed;
@@ -62,6 +63,10 @@ public class PlayerCharacter : MonoBehaviour {
 		if (callbackContext.performed) {
 			wantsToJump = true;
 		}
+	}
+
+	public void OnTakenDamage(int previousHealth, int currentHealth) {
+		onPlayerTakenDamage?.Invoke(this, previousHealth, currentHealth);
 	}
 
 	public void OnDeath() {

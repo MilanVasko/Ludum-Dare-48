@@ -5,6 +5,7 @@ public class Health : MonoBehaviour {
 	public int startingHealth;
 	int currentHealth;
 	bool dead = false;
+	public UnityEvent<int, int> onTakenDamage;
 	public UnityEvent onDeath;
 
 	void Awake() {
@@ -20,6 +21,8 @@ public class Health : MonoBehaviour {
 		}
 
 		currentHealth -= amount;
+		onTakenDamage?.Invoke(currentHealth + amount, currentHealth);
+
 		if (currentHealth <= 0) {
 			dead = true;
 			onDeath.Invoke();
