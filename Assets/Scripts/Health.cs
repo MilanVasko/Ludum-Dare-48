@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour {
 	public int startingHealth;
 	int currentHealth;
+	bool dead = false;
 	public UnityEvent onDeath;
 
 	void Awake() {
@@ -14,8 +15,13 @@ public class Health : MonoBehaviour {
 	}
 
 	public void TakeDamage(int amount) {
+		if (dead) {
+			return;
+		}
+
 		currentHealth -= amount;
 		if (currentHealth <= 0) {
+			dead = true;
 			onDeath.Invoke();
 		}
 	}

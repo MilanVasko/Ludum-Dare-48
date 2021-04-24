@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour {
+	public static event Action<PlayerCharacter> onPlayerDied;
+
 	public int laneCount;
 	public float changeLanesSpeed;
 	public float jumpSpeed;
@@ -59,6 +62,10 @@ public class PlayerCharacter : MonoBehaviour {
 		if (callbackContext.performed) {
 			wantsToJump = true;
 		}
+	}
+
+	public void OnDeath() {
+		onPlayerDied?.Invoke(this);
 	}
 
 	int CalculateCurrentLane() {
