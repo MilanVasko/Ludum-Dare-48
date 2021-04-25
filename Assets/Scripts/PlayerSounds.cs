@@ -9,8 +9,6 @@ public class PlayerSounds : MonoBehaviour {
 	public AudioClip[] died;
 
 	void Awake() {
-		OnSoundsVolumeChanged(PlayerSettings.soundsVolume);
-
 		PlayerHealth.onPlayerTakenDamage += OnPlayerTakenDamage;
 		PlayerHealth.onPlayerDied += OnPlayerDied;
 		PlayerCharacter.onPlayerJump += OnPlayerJump;
@@ -22,6 +20,10 @@ public class PlayerSounds : MonoBehaviour {
 		PlayerHealth.onPlayerDied -= OnPlayerDied;
 		PlayerHealth.onPlayerTakenDamage -= OnPlayerTakenDamage;
 		PlayerSettings.onSoundsVolumeChanged -= OnSoundsVolumeChanged;
+	}
+
+	void Start() {
+		OnSoundsVolumeChanged(PlayerSettings.soundsVolume);
 	}
 
 	void OnPlayerTakenDamage(PlayerHealth playerHealth, int previousHealth, int currentHealth) {
