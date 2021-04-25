@@ -7,6 +7,7 @@ public class PlayerCharacter : MonoBehaviour {
 	public float jumpSpeed;
 
 	public float forwardSpeed;
+	public float speedUpPerSecond;
 	public CharacterController characterController;
 	int currentLane;
 	int targetLane;
@@ -49,6 +50,8 @@ public class PlayerCharacter : MonoBehaviour {
 			currentSpeed.y = 0;
 			currentSpeed += Physics.gravity * Time.deltaTime;
 		}
+
+		forwardSpeed += speedUpPerSecond * Time.fixedDeltaTime;
 	}
 
 	public void OnLeft(InputAction.CallbackContext callbackContext) {
