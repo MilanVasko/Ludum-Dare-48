@@ -11,13 +11,21 @@ public class HealthSpawner : MonoBehaviour {
 
 	void Awake() {
 		currentCorridorsPassedTarget = Random.Range(minCorridorsPassed, maxCorridorsPassed);
+		CorridorSpawner corridorSpawner = GetComponent<CorridorSpawner>();
+		for (int i = 0; i <= corridorSpawner.corridorsToSpawn; i++) {
+			SpawnAtCorridor(corridorSpawner, i);
+		}
 	}
 
 	public void OnNextCorridorReached(CorridorSpawner corridorSpawner, int currentCorridorID, int lastCorridorID) {
+		SpawnAtCorridor(corridorSpawner, lastCorridorID);
+	}
+
+	void SpawnAtCorridor(CorridorSpawner corridorSpawner, int corridorID) {
 		--currentCorridorsPassedTarget;
 		if (currentCorridorsPassedTarget <= 0) {
 			currentCorridorsPassedTarget = Random.Range(minCorridorsPassed, maxCorridorsPassed);
-			SpawnHeart(corridorSpawner.CalculateCorridorPosition(lastCorridorID) + spawnOffset);
+			SpawnHeart(corridorSpawner.CalculateCorridorPosition(corridorID) + spawnOffset);
 		}
 	}
 

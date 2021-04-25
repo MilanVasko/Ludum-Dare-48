@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corridor: {fileID: 4608094646120462238, guid: a42488b4bc329a148961ba79e3b2e8d2, type: 3}
   corridorWithHole: {fileID: 4608094646120462238, guid: dccb05f3369a3d24eb038bd29b3eebe0, type: 3}
-  corridorsToSpawn: 10
+  corridorsToSpawn: 15
   corridorWithHoleSpawnChance: 0.3
   playerCharacter: {fileID: 1681712395}
   onNextCorridorReached:
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikes: {fileID: 5434482256990553331, guid: 0eb67cbfa319c634ba7ce5003c2cef45, type: 3}
   spawnChance: 0.9
+  startAtCorridor: 10
 --- !u!114 &542215460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,6 +291,7 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 0, z: 2}
   heartPrefab: {fileID: 8159901108012947833, guid: bee26b4ea446402439fbad361b9edc48, type: 3}
   laneCount: 3
+  startAtCorridor: 10
 --- !u!1 &599212775
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +325,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 1681712394}
   distanceFromTarget: 5
+  shakeDuration: 0.7
+  shakeSpeed: 50
+  shakeDistance: 0.05
 --- !u!81 &599212777
 AudioListener:
   m_ObjectHideFlags: 0
