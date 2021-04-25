@@ -21,6 +21,6 @@ public class GameOverUI : MonoBehaviour {
 
 	void SetUIActive(bool active) {
 		gameObject.SetActive(active);
-		Time.timeScale = active ? 0 : 1;
+		FindObjectOfType<GameDirector>().SetPause(active);
 	}
 }

@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour {
+	public static Action<PlayerCharacter> onPlayerJump;
+
 	public int laneCount;
 	public float changeLanesSpeed;
 	public float jumpSpeed;
@@ -43,6 +46,7 @@ public class PlayerCharacter : MonoBehaviour {
 			wantsToJump = false;
 			if (characterController.isGrounded) {
 				currentSpeed.y = jumpSpeed;
+				onPlayerJump?.Invoke(this);
 			}
 		}
 
@@ -69,6 +73,12 @@ public class PlayerCharacter : MonoBehaviour {
 	public void OnJump(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
 			wantsToJump = true;
+		}
+	}
+
+	public void OnPause(InputAction.CallbackContext callbackContext) {
+		if (callbackContext.performed) {
+			FindObjectOfType<GameDirector>().TogglePause();
 		}
 	}
 
