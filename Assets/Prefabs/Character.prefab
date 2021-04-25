@@ -208,10 +208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 7075392516701209113}
   hurt:
-  - {fileID: 8300000, guid: a01fd990fdef1a04da31649e3db72a52, type: 3}
-  - {fileID: 8300000, guid: a8c336bd899358144b5a8553e2154a06, type: 3}
-  - {fileID: 8300000, guid: 462eeb4c144536e49b1327b4d78ad19b, type: 3}
-  - {fileID: 8300000, guid: 4239a44f91aec8144a2876db36cab190, type: 3}
+  - {fileID: 8300000, guid: 40f0888424f67494aaa89b4056fb663d, type: 3}
+  - {fileID: 8300000, guid: 923f3fc87e2bac04e8c370bb75d27953, type: 3}
+  - {fileID: 8300000, guid: e23a2a85e82d7fe4db8b2b243937c85a, type: 3}
+  - {fileID: 8300000, guid: bf49795ccbd42e0439e4328951bac8c8, type: 3}
+  - {fileID: 8300000, guid: 7f92b682f3986f747813032885fe688e, type: 3}
   jump:
   - {fileID: 8300000, guid: a1b7322593acc064aa4d3552e558073b, type: 3}
   - {fileID: 8300000, guid: 97f48652ca4536c4a89427f7ba091265, type: 3}
@@ -222,11 +223,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d524d0c3e8afb1246a3732e6cf5d5890, type: 3}
   - {fileID: 8300000, guid: 2158246f40490974481f072f3be8959a, type: 3}
   died:
-  - {fileID: 8300000, guid: 40f0888424f67494aaa89b4056fb663d, type: 3}
-  - {fileID: 8300000, guid: 923f3fc87e2bac04e8c370bb75d27953, type: 3}
-  - {fileID: 8300000, guid: e23a2a85e82d7fe4db8b2b243937c85a, type: 3}
-  - {fileID: 8300000, guid: bf49795ccbd42e0439e4328951bac8c8, type: 3}
-  - {fileID: 8300000, guid: 7f92b682f3986f747813032885fe688e, type: 3}
+  - {fileID: 8300000, guid: 0268356b5e9bb73478fab864207662f2, type: 3}
+  - {fileID: 8300000, guid: a345cbe7666e4424aaafc312529bc916, type: 3}
+  - {fileID: 8300000, guid: c9f3ba8d3d077c04195fb1429ff8bd8c, type: 3}
+  - {fileID: 8300000, guid: 8d288d9dced495d4fa7f4097b0e957e9, type: 3}
+  heal:
+  - {fileID: 8300000, guid: e03d47efbe117e546a2c57000f79e1c5, type: 3}
+  - {fileID: 8300000, guid: 0d21a93f0f524ce469f1b4f818a534d9, type: 3}
+  - {fileID: 8300000, guid: 26d85f70b85fe97479e27ebceb2a88a2, type: 3}
+  - {fileID: 8300000, guid: 41d57aefdbe55134eabf591913896577, type: 3}
 --- !u!114 &9102854468422265945
 MonoBehaviour:
   m_ObjectHideFlags: 0

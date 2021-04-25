@@ -7,10 +7,12 @@ public class PlayerSounds : MonoBehaviour {
 	public AudioClip[] jump;
 	public AudioClip[] powerup;
 	public AudioClip[] died;
+	public AudioClip[] heal;
 
 	void Awake() {
 		PlayerHealth.onPlayerTakenDamage += OnPlayerTakenDamage;
 		PlayerHealth.onPlayerDied += OnPlayerDied;
+		PlayerHealth.onPlayerHealed += OnPlayerHealed;
 		PlayerCharacter.onPlayerJump += OnPlayerJump;
 		PlayerSettings.onSoundsVolumeChanged += OnSoundsVolumeChanged;
 	}
@@ -18,6 +20,7 @@ public class PlayerSounds : MonoBehaviour {
 	void OnDestroy() {
 		PlayerCharacter.onPlayerJump -= OnPlayerJump;
 		PlayerHealth.onPlayerDied -= OnPlayerDied;
+		PlayerHealth.onPlayerHealed -= OnPlayerHealed;
 		PlayerHealth.onPlayerTakenDamage -= OnPlayerTakenDamage;
 		PlayerSettings.onSoundsVolumeChanged -= OnSoundsVolumeChanged;
 	}
@@ -30,8 +33,12 @@ public class PlayerSounds : MonoBehaviour {
 		PlayRandomClip(hurt);
 	}
 
-	void OnPlayerDied(PlayerHealth obj) {
+	void OnPlayerDied(PlayerHealth playerHealth) {
 		PlayRandomClip(died);
+	}
+
+	void OnPlayerHealed(PlayerHealth playerHealth, int previousHealth, int currentHealth) {
+		PlayRandomClip(heal);
 	}
 
 	void OnPlayerJump(PlayerCharacter playerCharacter) {
