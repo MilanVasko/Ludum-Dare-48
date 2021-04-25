@@ -13,6 +13,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.2, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0.4}
+--- !u!114 &1386609181451220848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063523444346994557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcbc6cf3f99c7a49adb19d745f4f129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfDamage: 1
 --- !u!1 &6680146025261230362
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,9 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laneCount: 3
-  amountOfDamage: 1
   spikes: {fileID: 6876476419208013255}
-  boxCollider: {fileID: 0}
 --- !u!1001 &6405420095669207596
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour, ISelfDestructor {
 	public int laneCount;
-	public int amountOfDamage;
 	public Transform spikes;
 
 	void Awake() {
@@ -16,13 +15,6 @@ public class Spikes : MonoBehaviour, ISelfDestructor {
 		}
 		if (spaceIndex == 0) {
 			Destroy(spikes.gameObject);
-		}
-	}
-
-	void OnTriggerEnter(Collider other) {
-		Health health = other.GetComponentInParent<Health>();
-		if (health != null) {
-			health.TakeDamage(amountOfDamage);
 		}
 	}
 
