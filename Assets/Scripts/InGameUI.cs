@@ -8,9 +8,11 @@ public class InGameUI : MonoBehaviour {
 	void Awake() {
 		GameDirector.onTimeChanged += OnTimeChanged;
 		PlayerHealth.onPlayerTakenDamage += OnPlayerTakenDamage;
+		PlayerHealth.onPlayerHealed += OnPlayerHealed;
 	}
 
 	void OnDestroy() {
+		PlayerHealth.onPlayerHealed -= OnPlayerHealed;
 		PlayerHealth.onPlayerTakenDamage -= OnPlayerTakenDamage;
 		GameDirector.onTimeChanged -= OnTimeChanged;
 	}
@@ -24,6 +26,10 @@ public class InGameUI : MonoBehaviour {
 	}
 
 	void OnPlayerTakenDamage(PlayerHealth playerHealth, int previousHealth, int currentHealth) {
+		health.text = currentHealth.ToString();
+	}
+
+	void OnPlayerHealed(PlayerHealth playerHealth, int previousHealth, int currentHealth) {
 		health.text = currentHealth.ToString();
 	}
 }

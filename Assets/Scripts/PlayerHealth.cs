@@ -8,11 +8,22 @@ public class PlayerHealth : Health {
 
 	public static event Action<PlayerHealth> onPlayerDied;
 	public static event Action<PlayerHealth, int, int> onPlayerTakenDamage;
+	public static event Action<PlayerHealth, int, int> onPlayerHealed;
 
+	public int maxHealth;
 	bool isInvincibleAfterDamage = false;
+
+	protected override bool ShouldHeal(int amount) {
+		return currentHealth < maxHealth && base.ShouldHeal(amount);
+	}
 
 	protected override bool ShouldTakeDamage(int amount) {
 		return !isInvincibleAfterDamage && base.ShouldTakeDamage(amount);
+	}
+
+	protected override void OnHealed(int previousHealth, int currentHealth) {
+		base.OnHealed(previousHealth, currentHealth);
+		onPlayerHealed?.Invoke(this, previousHealth, currentHealth);
 	}
 
 	protected override void OnTakenDamage(int previousHealth, int currentHealth) {
