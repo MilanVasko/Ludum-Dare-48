@@ -20,16 +20,7 @@ public class InGameUI : MonoBehaviour {
 	}
 
 	void OnTimeChanged(float currentTime) {
-		int totalSeconds = (int)currentTime;
-		int totalMinutes = totalSeconds / 60;
-		int totalHours = totalMinutes / 60;
-
-		int milliseconds = ((int)(currentTime * 1000)) % 1000;
-		int seconds = totalSeconds % 60;
-		int minutes = totalMinutes % 60;
-		int hours = totalHours % 60;
-
-		elapsedTime.text = hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00") + "." + milliseconds.ToString("000");
+		elapsedTime.text = Util.FormatElapsedTime(currentTime);
 	}
 
 	void OnPlayerTakenDamage(PlayerHealth playerHealth, int previousHealth, int currentHealth) {

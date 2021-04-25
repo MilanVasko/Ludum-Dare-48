@@ -78,7 +78,7 @@ public class PlayerCharacter : MonoBehaviour {
 
 	public void OnPause(InputAction.CallbackContext callbackContext) {
 		if (callbackContext.performed) {
-			FindObjectOfType<GameDirector>().TogglePause();
+			FindObjectOfType<GameDirector>().OnPausePressed();
 		}
 	}
 

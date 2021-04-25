@@ -5,24 +5,28 @@ public class GameDirector : MonoBehaviour {
 	public static event Action<float> onTimeChanged;
 	public static event Action<bool> onPauseStateChanged;
 
-	float elapsedTime = 0.0f;
+	float _elapsedTime = 0.0f;
+	public float elapsedTime { get { return _elapsedTime; } }
 
-	public bool isPaused {
-		get {
-			return Time.timeScale == 0;
-		}
-	}
+	public bool isPaused { get { return Time.timeScale == 0; } }
 
 	void Start() {
-		onTimeChanged?.Invoke(elapsedTime);
+		onTimeChanged?.Invoke(_elapsedTime);
 	}
 
 	void Update() {
-		elapsedTime += Time.deltaTime;
-		onTimeChanged?.Invoke(elapsedTime);
+		_elapsedTime += Time.deltaTime;
+		onTimeChanged?.Invoke(_elapsedTime);
 	}
 
-	public void TogglePause() {
+	public void OnPausePressed() {
+		if (isPaused && FindObjectOfType<PlayerHealth>().isDead) {
+			return;
+		}
+		TogglePause();
+	}
+
+	void TogglePause() {
 		SetPause(!isPaused);
 	}
 

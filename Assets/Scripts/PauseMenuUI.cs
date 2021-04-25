@@ -8,7 +8,6 @@ public class PauseMenuUI : MonoBehaviour {
 	void Awake() {
 		soundsVolumeSlider.value = PlayerSettings.soundsVolume;
 		musicVolumeSlider.value = PlayerSettings.musicVolume;
-		SetUIActive(FindObjectOfType<GameDirector>().isPaused);
 
 		PlayerSettings.onSoundsVolumeChanged += OnSoundsVolumeChanged;
 		PlayerSettings.onMusicVolumeChanged += OnMusicVolumeChanged;
@@ -19,6 +18,10 @@ public class PauseMenuUI : MonoBehaviour {
 		GameDirector.onPauseStateChanged -= OnPauseStateChanged;
 		PlayerSettings.onMusicVolumeChanged -= OnMusicVolumeChanged;
 		PlayerSettings.onSoundsVolumeChanged -= OnSoundsVolumeChanged;
+	}
+
+	void Start() {
+		SetUIActive(FindObjectOfType<GameDirector>().isPaused);
 	}
 
 	public void OnSoundsVolumeSliderChanged(float currentValue) {

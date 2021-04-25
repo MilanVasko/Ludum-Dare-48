@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerSettings : MonoBehaviour {
 	public static event Action<float> onSoundsVolumeChanged;
 	public static event Action<float> onMusicVolumeChanged;
+	public static event Action<string> onPlayerNameChanged;
 
 	public static float soundsVolume {
 		get {
@@ -22,6 +23,16 @@ public class PlayerSettings : MonoBehaviour {
 		set {
 			PlayerPrefs.SetFloat("music-volume", value);
 			onMusicVolumeChanged?.Invoke(value);
+		}
+	}
+
+	public static string playerName {
+		get {
+			return PlayerPrefs.GetString("player-name", "");
+		}
+		set {
+			PlayerPrefs.SetString("player-name", value);
+			onPlayerNameChanged?.Invoke(value);
 		}
 	}
 }

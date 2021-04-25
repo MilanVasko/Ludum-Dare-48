@@ -5,6 +5,7 @@ public class Health : MonoBehaviour {
 	int currentHealth;
 
 	protected bool dead = false;
+	public bool isDead { get { return dead; } }
 
 	void Awake() {
 		currentHealth = startingHealth;
