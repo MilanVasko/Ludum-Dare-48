@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laneCount: 3
   changeLanesSpeed: 5
-  jumpSpeed: 5
+  jumpSpeed: 4
   forwardSpeed: 7
   speedUpPerSecond: 0.033333335
   characterController: {fileID: 3161498709686556228}
