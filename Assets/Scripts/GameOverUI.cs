@@ -138,8 +138,12 @@ public class GameOverUI : MonoBehaviour {
 
 			ScoreResponse scoreResponse = JsonUtility.FromJson<ScoreResponse>(www.downloadHandler.text);
 
-			currentScores = new List<ScoreOutput>(scoreResponse.values);
-			currentScores.Sort((a, b) => -a.elapsedTime.CompareTo(b.elapsedTime));
+			if (scoreResponse != null && scoreResponse.values != null) {
+				currentScores = new List<ScoreOutput>(scoreResponse.values);
+				currentScores.Sort((a, b) => -a.elapsedTime.CompareTo(b.elapsedTime));
+			} else {
+				currentScores = new List<ScoreOutput>();
+			}
 
 			RefreshScores(currentScores);
 		}
