@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   meshRenderer: {fileID: 7856692740777705148}
-  invincibleAfterDamageTime: 5
+  invincibleAfterDamageTime: 3
 --- !u!114 &2201511699294221929
 MonoBehaviour:
   m_ObjectHideFlags: 0

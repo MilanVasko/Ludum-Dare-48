@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,15 +13,17 @@ public class GameOverUI : MonoBehaviour {
 	public InputField yourNameInput;
 	public Text yourTimeText;
 	public Button yourNameSubmitButton;
+	public Text yourNameSubmitFailedText;
+	bool submitLoading = false;
+	string submitError = "";
+	bool submitForbidden = false;
 
 	public ScoreEntryUI scoreEntryPrefab;
 	public RectTransform scoreEntriesContainer;
-
+	public Text scoreLoadingFailedText;
 	bool scoresLoading = false;
-	string scoresError = "";
 
-	bool submitLoading = false;
-	string submitError = "";
+	List<ScoreOutput> currentScores = new List<ScoreOutput>();
 
 	void Awake() {
 		yourNameInput.text = PlayerSettings.playerName;
@@ -33,7 +36,14 @@ public class GameOverUI : MonoBehaviour {
 	}
 
 	void Start() {
-		yourNameSubmitButton.interactable = PlayerSettings.playerName.Trim() != "";
+		yourNameSubmitFailedText.gameObject.SetActive(false);
+		scoreLoadingFailedText.gameObject.SetActive(false);
+
+		RefreshSubmitButtonInteractivity();
+	}
+
+	void RefreshSubmitButtonInteractivity() {
+		yourNameSubmitButton.interactable = !submitForbidden && (PlayerSettings.playerName.Trim() != "" && (!submitLoading || submitError != ""));
 	}
 
 	void OnPlayerDied(PlayerHealth playerHealth) {
@@ -41,7 +51,10 @@ public class GameOverUI : MonoBehaviour {
 
 		yourTimeText.text = Util.FormatElapsedTime(FindObjectOfType<GameDirector>().elapsedTime);
 		StopAllCoroutines();
-		StartCoroutine(GetScores());
+
+		if (!scoresLoading) {
+			StartCoroutine(GetScores());
+		}
 	}
 
 	public void OnTryAgainPressed() {
@@ -50,51 +63,15 @@ public class GameOverUI : MonoBehaviour {
 
 	public void OnPlayerNameChanged(string newPlayerName) {
 		PlayerSettings.playerName = newPlayerName;
-		yourNameSubmitButton.interactable = newPlayerName.Trim() != "";
+		RefreshSubmitButtonInteractivity();
 	}
 
 	public void OnSubmitPressed() {
-		if (submitLoading) {
+		if (submitLoading || submitForbidden) {
 			return;
 		}
 		submitLoading = true;
 		StartCoroutine(SendScore(PlayerSettings.playerName, FindObjectOfType<GameDirector>().elapsedTime));
-	}
-
-	void SetUIActive(bool active) {
-		gameObject.SetActive(active);
-		Time.timeScale = active ? 0 : 1;
-	}
-
-	IEnumerator GetScores() {
-		UnityWebRequest www = UnityWebRequest.Get(API_URL + "/scores");
-		yield return www.SendWebRequest();
-
-		scoresLoading = false;
-		if (www.result != UnityWebRequest.Result.Success) {
-			scoresError = www.error;
-		} else {
-			scoresError = "";
-
-			ScoreResponse scoreResponse = JsonUtility.FromJson<ScoreResponse>(www.downloadHandler.text);
-
-			foreach (RectTransform child in scoreEntriesContainer) {
-				Destroy(child.gameObject);
-			}
-
-			Array.Sort(scoreResponse.values, (a, b) => -a.elapsedTime.CompareTo(b.elapsedTime));
-
-			foreach (ScoreOutput scoreOutput in scoreResponse.values) {
-				ScoreEntryUI scoreEntry = Instantiate(scoreEntryPrefab, scoreEntriesContainer);
-				scoreEntry.SetData(scoreOutput.name, scoreOutput.elapsedTime);
-			}
-		}
-	}
-
-	[Serializable]
-	public class ScoreInput {
-		public string name;
-		public float elapsedTime;
 	}
 
 	IEnumerator SendScore(string name, float elapsedTime) {
@@ -117,14 +94,77 @@ public class GameOverUI : MonoBehaviour {
 			submitLoading = false;
 
 			if (www.result != UnityWebRequest.Result.Success) {
-				submitError = www.error;
-				Debug.Log(submitError);
+				OnSubmitError(www.error);
+				Debug.Log(www.error);
 			} else {
-				submitError = "";
+				OnSubmitError("");
+				ScoreOutput myScoreOutput = new ScoreOutput {
+					name = name,
+					date = "",
+					elapsedTime = elapsedTime
+				};
+				currentScores.Add(myScoreOutput);
+				currentScores.Sort((a, b) => -a.elapsedTime.CompareTo(b.elapsedTime));
+				RefreshScores(currentScores);
+
+				submitForbidden = true;
+				RefreshSubmitButtonInteractivity();
 				Debug.Log("Done uploading score");
 			}
 		}
 	}
+
+	void OnSubmitError(string error) {
+		submitError = error;
+		yourNameSubmitFailedText.gameObject.SetActive(error != "");
+	}
+
+	void SetUIActive(bool active) {
+		gameObject.SetActive(active);
+		Time.timeScale = active ? 0 : 1;
+	}
+
+	IEnumerator GetScores() {
+		scoresLoading = true;
+
+		UnityWebRequest www = UnityWebRequest.Get(API_URL + "/scores");
+		yield return www.SendWebRequest();
+
+		scoresLoading = false;
+		if (www.result != UnityWebRequest.Result.Success) {
+			OnScoresError(www.error);
+		} else {
+			OnScoresError("");
+
+			ScoreResponse scoreResponse = JsonUtility.FromJson<ScoreResponse>(www.downloadHandler.text);
+
+			currentScores = new List<ScoreOutput>(scoreResponse.values);
+			currentScores.Sort((a, b) => -a.elapsedTime.CompareTo(b.elapsedTime));
+
+			RefreshScores(currentScores);
+		}
+	}
+
+	void OnScoresError(string error) {
+		scoreLoadingFailedText.gameObject.SetActive(error != "");
+	}
+
+	void RefreshScores(List<ScoreOutput> sortedCurrentScores) {
+		foreach (RectTransform child in scoreEntriesContainer) {
+			Destroy(child.gameObject);
+		}
+
+		foreach (ScoreOutput scoreOutput in sortedCurrentScores) {
+			ScoreEntryUI scoreEntry = Instantiate(scoreEntryPrefab, scoreEntriesContainer);
+			scoreEntry.SetData(scoreOutput.name, scoreOutput.elapsedTime);
+		}
+	}
+}
+
+[Serializable]
+public class ScoreInput {
+	public string name;
+	public float elapsedTime;
 }
 
 [Serializable]
