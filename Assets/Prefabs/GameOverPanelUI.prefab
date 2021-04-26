@@ -1953,6 +1953,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3017933891420293325}
     m_Modifications:
+    - target: {fileID: 1965630667169016677, guid: c917548ff3a1eea49a31d65a7a5c4c66, type: 3}
+      propertyPath: m_Text
+      value: Loading...
+      objectReference: {fileID: 0}
     - target: {fileID: 7588734949319962292, guid: c917548ff3a1eea49a31d65a7a5c4c66, type: 3}
       propertyPath: m_Name
       value: ScoreEntryUI
